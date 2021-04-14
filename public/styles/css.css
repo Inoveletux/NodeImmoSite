@@ -1,0 +1,25 @@
+img{
+    width: 100px;
+    height: auto;
+}
+#divMenu{
+    display: flex;
+    flex-direction: row;
+    text-align: center
+}
+#ulMenu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+li{
+    padding: 2px;
+}
+.input-group-text{
+    height: 100%;
+    margin-left: 15%;
+}
+.form-control{
+    margin-right: 2%;
+}
