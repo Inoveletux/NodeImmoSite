@@ -11,7 +11,7 @@ block content
             div(class="input-group-prepend")
                 span(class="input-group-text" id="basic-addon1")
                     i(class="fas fa-unlock-alt")
-            input(type="text" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon1" name="password")
+            input(type="text" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon1" name="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
         div(class="input-group mb-3")
             div(class="input-group-prepend")
                 span(class="input-group-text" id="basic-addon1")

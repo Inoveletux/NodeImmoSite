@@ -19,6 +19,12 @@ module.exports = class User {
     }
  
     add(userEntity) {
-        this.db.create(userEntity);
+        // console.log(userEntity)
+        return new Promise((resolve, reject)=> {
+            this.db.create(userEntity, function (err, user){
+                if(err) reject (err);
+                resolve(user)
+            });
+        })
     }
 } 

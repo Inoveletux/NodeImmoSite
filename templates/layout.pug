@@ -16,4 +16,11 @@ html
                     a(href="register") Inscription 
                     li 
                     a(href="login") Se connecter 
+        - var messages = getMessages()
+            if messages.notify
+                each msg in messages.notify
+                    .alert.alert-info= msg
+            if messages.error
+                each msg in messages.error
+                    .alert.alert-danger= msg
         block content
