@@ -34,4 +34,9 @@ module.exports = (app) => {
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).print(req, res);
     });
+    //Post du formulaire d'ajout de bien
+    app.post('/admin/product', (req, res) => {
+        let Product = require('../src/controllers/ProductDashboard.js');
+        (new Product()).processProductForm(req, res);
+    });
 };
