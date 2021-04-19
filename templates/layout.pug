@@ -10,12 +10,17 @@ html
             div(id="divMenu")
                 img(src="/images/imoLogo.jpg")
                 ul(id="ulMenu")
-                    li 
-                    a(href="/") Accueil 
-                    li 
-                    a(href="register") Inscription 
-                    li 
-                    a(href="login") Se connecter 
+                    li.nav-item.active 
+                        a.nav-link(href="/") Accueil 
+                    if session.user 
+                        li.nav-item
+                            a.nav-link(href='/deconnexion') Se déconnecter                       
+                    else
+                        li.nav-item
+                            a.nav-link(href='/register') Inscription
+                        li.nav-item
+                            a.nav-link(href='/login') Connexion
+
         - var messages = getMessages()
             if messages.notify
                 each msg in messages.notify
@@ -23,4 +28,6 @@ html
             if messages.error
                 each msg in messages.error
                     .alert.alert-danger= msg
+
+
         block content

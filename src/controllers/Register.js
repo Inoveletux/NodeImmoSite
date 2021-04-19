@@ -1,6 +1,7 @@
-
+//Pour Hash le mdp
 var bcrypt = require('bcryptjs');
 let RepoUser = require('../repository/User')
+
 module.exports = class Register {
     print(req, res) {
         res.render('register');  
@@ -8,7 +9,7 @@ module.exports = class Register {
     processForm(req, res){
         let entity = {
             email : req.body.email || '',
-            password : req.body.password || '', // devra être hashé
+            password : req.body.password || '', 
             civility : req.body.civility || '',
             lastname: req.body.lastname || '',
             firstname: req.body.firstname || '',
@@ -18,8 +19,8 @@ module.exports = class Register {
         entity.password = bcrypt.hashSync(req.body.password, salt);
         // console.log(entity)
 
+        //
         let promise = (new RepoUser).add(entity);
-        
         promise.then(() => {
 
             if(req.body.email === '' || req.body.password === '' || req.body.civility === '' || req.body.lastname === '' || req.body.firstname === '' || req.body.phone === ''){
@@ -30,8 +31,5 @@ module.exports = class Register {
                 res.redirect('/');
             }
         });
-
-        
-    // console.log(req.body)
     }
 };

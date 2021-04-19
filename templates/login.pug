@@ -1,7 +1,7 @@
 extends layout
 block content
     div Connectez-vous ici
-    form(action='/register' method="post")
+    form(action='/login' method="post")
         div(class="input-group mb-3")
             div(class="input-group-prepend")
                 span(class="input-group-text" id="basic-addon1")
@@ -11,4 +11,7 @@ block content
             div(class="input-group-prepend")
                 span(class="input-group-text" id="basic-addon1")
                     i(class="fas fa-unlock-alt")
-            input(type="text" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon1" name="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
+            input(type="password" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon1" name="password")
+        row(class="justify-content-center")
+            div(class="col-2")
+                button.btn.btn-primary(type="submit") Enregistrer

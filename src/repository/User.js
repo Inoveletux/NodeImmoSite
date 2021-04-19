@@ -20,11 +20,25 @@ module.exports = class User {
  
     add(userEntity) {
         // console.log(userEntity)
-        return new Promise((resolve, reject)=> {
+        return new Promise((res, rej)=> {
             this.db.create(userEntity, function (err, user){
-                if(err) reject (err);
-                resolve(user)
+                if(err) rej (err);
+                res(user)
             });
         })
     }
+    userGetEmail(email) {
+        return new Promise((res, rej) => {
+            this.db.findOne({ email }, (err, user) => {
+                // si pas d'erreur, email trouvé
+                if (!err && user !== null) {
+                    res(user);
+                }  
+                //res(false);
+                // ou 
+                rej(`Utilisateur non trouvé`);
+            })
+        })
+    }
+
 } 
