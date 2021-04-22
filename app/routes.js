@@ -39,4 +39,22 @@ module.exports = (app) => {
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).processProductForm(req, res);
     });
+    //Route vers la page listing des produits
+    app.get('/admin/product/list', (req, res) => {
+        let Product = require('../src/controllers/ProductList.js');
+        (new Product()).print(req, res);
+    });
+    // Route pour la suppression des produits
+    app.get('/admin/product/list/delete', (req, res) => {
+        //console.log(req.query.id)
+        let Product = require('../src/controllers/ProductList.js');
+        (new Product()).delete(req, res);
+    });
+    // Route pour la modification des produits
+    app.get('/admin/product/edit/:id', (req, res) => {
+        //console.log(req.query.id)
+        let Product = require('../src/controllers/ProductDashboard.js');
+        (new Product()).print(req, res);
+    });
+
 };

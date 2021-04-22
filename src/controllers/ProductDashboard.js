@@ -1,10 +1,21 @@
 let RepoProduct = require('../repository/Product')
 
-
 module.exports = class ProductDashboard {
     print(req, res) {
-        if(typeof req.session.user !== 'undefined') {
-            res.render('admin/dashboard/product.pug');
+        if(typeof req.session.user !== 'undefined' ) {
+
+            if(typeof req.params.id !=='undefined') {
+                // recuperere les données du biens
+                let promise = (new RepoProduct).getByID(req.params.id);
+                promise.then((product) => {
+                    res.render('admin/dashboard/product.pug', {form : product});
+                }, () => {
+                    req.flash('error', `Le bien n'a pas été trouvé.`);
+                    res.redirect('/admin/product/list');
+                });
+            } else {
+                res.render('admin/dashboard/product.pug', {form: {realty : {}, contact : {}}});
+            }
             return;
         }
         req.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
@@ -12,7 +23,7 @@ module.exports = class ProductDashboard {
     }
 
     processProductForm(req, res) {
-        console.log(req.body)
+        // console.log(req.body)
         let entity = {
             realty : {
                 realtyName : req.body.realty.seller  || '',

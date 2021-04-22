@@ -45,4 +45,32 @@ module.exports = class Product {
             });
         })
     }
+
+    getAll() {        
+        return new Promise((res, rej)=> {
+            this.db.find({}, function (err, products){
+                // console.log(err, products)
+                if(err) rej (err);
+                res(products)
+            });
+        })
+    }
+
+    getByID(id) {
+        return new Promise((res, rej)=> {
+            this.db.findOne({_id: id}, function (err, product){
+                if(err || product === null) rej();
+                res(product);
+            });
+        });
+    }
+
+    deleteByID(id) {
+        return new Promise((res, rej)=> {
+            this.db.deleteOne({_id: id}, function (err){
+                if(err) rej (err);
+                res();
+            });
+        });
+    }
 } 
