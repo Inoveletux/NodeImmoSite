@@ -1,9 +1,11 @@
 //faire le lien avec la base de donnée.
 require('../../app/database.js');
-
 const mongoose = require('mongoose');
+let slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 
 const ProductSchema = mongoose.Schema({
+    slug : { type : String, slug : ["realty.realtyName", "realty.realtyCity"], unique : true},
     realty : {
         realtyName : {  type: String },
         realtyAddress1 : { type: String },
@@ -61,6 +63,16 @@ module.exports = class Product {
             this.db.findOne({_id: id}, function (err, product){
                 if(err || product === null) rej();
                 res(product);
+            });
+        });
+    }
+
+    modifyById(id, entity) {
+        return new Promise((res, rej)=> {
+            this.db.updateOne({_id : id}, entity, function (err){
+                // console.log(err, products)
+                if(err) rej (err);
+                res();
             });
         });
     }

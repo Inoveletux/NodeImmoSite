@@ -12,7 +12,7 @@ html
                 ul(id="ulMenu")
                     li.nav-item.active 
                         a.nav-link(href="/") Accueil 
-                    if session.user 
+                    if user.connected 
                         li.nav-item
                             a.nav-link(href='/deconnexion') Se déconnecter                       
                     else

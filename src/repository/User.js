@@ -10,7 +10,8 @@ const UserSchema = mongoose.Schema({
     lastname: { type: String, match: /^[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž-]+$/i },
     firstname: { type: String, match: /^[a-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšž-]+$/i },
     phone: { type: String, match: /^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/ },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    roles: { type: String }
 }, { versionKey: false });
  
 module.exports = class User {

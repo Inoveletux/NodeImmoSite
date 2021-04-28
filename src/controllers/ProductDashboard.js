@@ -2,7 +2,7 @@ let RepoProduct = require('../repository/Product')
 
 module.exports = class ProductDashboard {
     print(req, res) {
-        if(typeof req.session.user !== 'undefined' ) {
+        //if(typeof req.session.user !== 'undefined' ) {
 
             if(typeof req.params.id !=='undefined') {
                 // recuperere les données du biens
@@ -17,23 +17,22 @@ module.exports = class ProductDashboard {
                 res.render('admin/dashboard/product.pug', {form: {realty : {}, contact : {}}});
             }
             return;
-        }
-        req.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
-        res.redirect('/login');  
+        //}
+        //req.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+        //res.redirect('/login');  
     }
 
     processProductForm(req, res) {
-        // console.log(req.body)
         let entity = {
             realty : {
                 realtyName : req.body.realty.seller  || '',
                 realtyAddress1 : req.body.realty.address1  || '',
-                realtyAdress2 : req.body.realty.adress2,
+                realtyAdress2 : req.body.realty.address2,
                 realtyZipcode : req.body.realty.zipcode  || '',
                 realtyCity : req.body.realty.city  || '',
-                realtyInfoAddress : req.body.realty.info_adress  || '',
+                realtyInfoAddress : req.body.realty.info_address  || '',
                 realtyType : req.body.realty.type  || '',
-                realtyPrice : req.body.realty.realty  || '',
+                realtyPrice : req.body.realty.price  || '',
                 realtyAmountComission : req.body.realty.amount_comission  || '',
                 realtyPercentageComission : req.body.realty.percentage_comission  || '',
                 realtyArea : req.body.realty.area  || '',
@@ -62,5 +61,50 @@ module.exports = class ProductDashboard {
                 res.redirect('/admin/product');
             }
         });
+    }
+
+    modify(req,res){
+        if(typeof req.session.user === 'undefined') {
+            req.flash('error', `Vous devez être connecté pour accéder à l'administration.`);
+            res.redirect('/login');  
+        }
+        let entity = {
+            realty : {
+                realtyName : req.body.realty.seller  || '',
+                realtyAddress1 : req.body.realty.address1  || '',
+                realtyAdress2 : req.body.realty.address2,
+                realtyZipcode : req.body.realty.zipcode  || '',
+                realtyCity : req.body.realty.city  || '',
+                realtyInfoAddress : req.body.realty.info_address  || '',
+                realtyType : req.body.realty.type  || '',
+                realtyPrice : req.body.realty.price  || '',
+                realtyAmountComission : req.body.realty.amount_comission  || '',
+                realtyPercentageComission : req.body.realty.percentage_comission  || '',
+                realtyArea : req.body.realty.area  || '',
+                realtyRoom : req.body.realty.room  || '',
+                realtyTypeProduct : req.body.realty.type_product  || '',
+                realtyInfoRealty : req.body.realty.info_realty,
+            },
+            contact : {
+                contactCivility : req.body.contact.civility || '',
+                contactLastName : req.body.contact.lastname || '',
+                contactFirstName : req.body.contact.firstname || '',
+                contactEmail : req.body.contact.email || '',
+                contactMobile : req.body.contact.mobile || '',
+                contactPhone : req.body.contact.phone || '',
+                contactInfo : req.body.contact.info
+            }
+            // photos : req.body.??
+        };
+    
+        let promise = (new RepoProduct).modifyById(req.params.id, entity);
+        promise.then(() => {
+            req.flash('notify', 'Le bien a été modifié')
+            res.redirect('/admin/product/list');
+        }, () => {
+            req.flash('error', 'La modification du bien a échoué')
+            res.redirect('/admin/product/list');
+        });
+
     }
 };

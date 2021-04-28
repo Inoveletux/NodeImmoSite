@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div.div.div-dark
+        p= product.realty.realtyName
+        p #{product.realty.realtyAddress1}<br />
+            | #{product.realty.realtyAdress2}<br />
+            | #{product.realty.realtyZipcode} #{product.realty.realtyCity}
+        p= product.realty.realtyType +' '+product.realty.realtyArea+'m² '+ product.realty.realtyRoom+'pieces'
+        p= product.realty.realtyPrice
+        p #{product.contact.contactCivility == 1 ? Monsieur : Madame}
+        p 
+            a(target="_blank" href="mailto:product.contact.contactEmail")= product.contact.contactLastName+' '+product.contact.contactFirstName
+        p= product.contact.contactPhone
