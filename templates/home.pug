@@ -1,3 +1,28 @@
 extends layout
 block content
-    div Hello world !!!
+    h1 Liste des biens disponibles 
+    table.table.table-dark
+        thead 
+            td Nom
+            td Adresses 
+            td Surface 
+            td Prix 
+            td Civilité
+            td Propriétaire
+            td Téléphone
+        tbody
+        each product in products 
+            tr 
+                td= product.realty.realtyName
+                td #{product.realty.realtyAddress1}<br />
+                    | #{product.realty.realtyAdress2}<br />
+                    | #{product.realty.realtyZipcode} #{product.realty.realtyCity}
+                td= product.realty.realtyType +' '+product.realty.realtyArea+'m² '+ product.realty.realtyRoom+'pieces'
+                td= product.realty.realtyPrice
+                td #{product.contact.contactCivility == 1 ? Monsieur : Madame}
+                td 
+                    a(target="_blank" href="mailto:product.contact.contactEmail")= product.contact.contactLastName+' '+product.contact.contactFirstName
+                td= product.contact.contactPhone
+                td 
+                    a.btn.btn-primary.center-block(href="/product/"+product._id) Afficher
+                    //- a.btn.btn-primary.center-block(href="/product?id="+product._id) Supprimer
