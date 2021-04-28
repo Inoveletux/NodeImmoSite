@@ -1,3 +1,5 @@
+const token = require('../src/services/csrf.js');
+
 module.exports = (app) => {
     //Route vers la page d'accueil aka home
     app.get('/', (req, res) => {
@@ -5,12 +7,12 @@ module.exports = (app) => {
         (new Home()).print(req, res);
     });
     //Route vers l'inscription aka register
-    app.get('/register', (req, res) => {
+    app.get('/register', token.generate, (req, res) => {
         let Register = require('../src/controllers/Register.js');
         (new Register()).print(req, res);
     });
     //Post du formulaire de connexion (pour récup ses infos)
-    app.post('/register', (req, res) => {
+    app.post('/register', token.checkToken,  (req, res) => {
         let Register = require('../src/controllers/Register.js');
         (new Register()).processForm(req, res);
     });
