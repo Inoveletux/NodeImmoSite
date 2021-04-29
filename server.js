@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //       permet d'envoyer des variables à toutes les vues
 //-------------------------------------------------------------------- 
 app.use((req,res,next) => {
-    //res.locals.session = req.session;
+    // res.locals.session = req.session;
     res.locals.user = {}
     res.locals.websiteName = config.websiteName; 
     res.locals.route = req._parsedUrl.pathname;

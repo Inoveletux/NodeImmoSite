@@ -18,6 +18,7 @@ block content
                         legend Adresse du bien
                         .col-lg-12 
                             .form-group
+                                input(type="hidden" name="csrf" value=token)
                                 label Nom du vendeur
                                 input.form-control(type="text" name="realty[seller]" value=form.realty.realtyName maxlength="40" required placeholder="Nom du vendeur")
                         .col-lg-12 

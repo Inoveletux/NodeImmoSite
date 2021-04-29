@@ -36,12 +36,12 @@ module.exports = (app) => {
         (new Dashboard()).print(req, res);
     });
     //Route vers la page product
-    app.get('/admin/product', (req, res) => {
+    app.get('/admin/product', token.generate, (req, res) => {
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).print(req, res);
     });
     //Post du formulaire d'ajout de bien
-    app.post('/admin/product', (req, res) => {
+    app.post('/admin/product', token.checkToken, (req, res) => {
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).processProductForm(req, res);
     });
@@ -56,41 +56,15 @@ module.exports = (app) => {
         (new Product()).delete(req, res);
     });
     // Route pour la modification d'un produit en fonction de son ID
-    app.get('/admin/product/edit/:id', (req, res) => {
+    app.get('/admin/product/edit/:id', token.generate, (req, res) => {
         //console.log(req.query.id)
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).print(req, res);
     });
     //Route pour envoyer la modification du formulaire de produit (en fonction de l'ID)
-    app.post('/admin/product/edit/:id', (req, res) => {
+    app.post('/admin/product/edit/:id', token.checkToken, (req, res) => {
         //console.log(req.query.id)
         let Product = require('../src/controllers/ProductDashboard.js');
         (new Product()).modify(req, res);
     });
-    // Exporté vers "services"
-    // app.get('/admin/test-jwt', (req, res) => { 
-    //     const jwt = require('jsonwebtoken');
-    //     const Cookies = require( "cookies" );
-    //     const config = require('./config.js')
-    //     // Récupération du token dans le cookie
-    //     let token = new Cookies(req,res).get('access_token');
-    //     // Si le cookie (access_token) n'existe pas
-    //     if (token == null) return res.sendStatus(401);
-    //     // sinon on vérifie le jwt
-    //     jwt.verify(token, config.appKey, (err, dataJwt) => { 
-    //         // Erreur du JWT (n'est pas un JWT, a été modifié, est expiré)
-    //         if(err) return res.sendStatus(403);
-    //         // A partir de là le JWT est valide on a plus qu'à vérifier les droits
-    //         // Si on est admin
-    //         if(typeof dataJwt.roles != 'undefined' && dataJwt.roles == 'admin') {
-    //             return res.send(`Admin ${dataJwt.username}`);
-    //         } 
-    //         else {
-    //             // si on n'est pas admin
-    //             return res.send(`${dataJwt.firstname} PAS ADMIN !!!!`);
-    //         }
-    //     });
-    // });
-    
-
 };

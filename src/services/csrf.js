@@ -14,6 +14,7 @@ exports.generate = function(req, res, next) {
     let token = require('crypto').createHash('sha1').update(`${new Date().toDateString()}${Math.random()}`).digest('hex').toLowerCase();
     //Mettre le token dans la session, utilisable par le template  
     req.session.token = token;
+    res.locals.token = token;
     next();
 };
 
