@@ -10,6 +10,11 @@ module.exports = (app) => {
         let Home = require('../src/controllers/Home.js');
         (new Home()).print(req, res);
     });
+    //Route vers l'affichage d'une annonce
+    app.get('/announce/:id', (req, res) => {
+        let Announce = require('../src/controllers/Announce.js');
+        (new Announce()).print(req, res);
+    });
     //Route vers l'inscription aka register
     app.get('/register', token.generate, (req, res) => {
         let Register = require('../src/controllers/Register.js');
@@ -30,6 +35,12 @@ module.exports = (app) => {
         let Login = require('../src/controllers/Login.js');
         (new Login()).processLoginForm(req, res);
     });
+
+    app.get('/deconnexion', (req, res) => {
+        let Login = require('../src/controllers/Login.js');
+        (new Login()).disconnect(req, res);
+    });
+
     //Route vers la page Admin
     app.get('/admin', (req, res) => {
         let Dashboard = require('../src/controllers/Dashboard.js');
@@ -65,6 +76,37 @@ module.exports = (app) => {
     app.post('/admin/product/edit/:id', token.checkToken, (req, res) => {
         //console.log(req.query.id)
         let Product = require('../src/controllers/ProductDashboard.js');
-        (new Product()).modify(req, res);
+        (new Product()).delete(req, res);
+    });
+
+    app.get('/admin/contact', (req, res) => {
+        //console.log(req.query.id)
+        let Contact = require('../src/controllers/ContactList.js');
+        (new Contact()).print(req, res);
+    });
+
+    app.get('/admin/contact/delete', (req, res) => {
+        let Contact = require('../src/controllers/ContactList.js');
+        (new Contact()).delete(req, res);
+    });
+
+    app.get('/admin/contact/add', token.generate, (req, res) => {
+        let Contact = require('../src/controllers/ContactAdd.js');
+        (new Contact()).print(req, res);
+    });
+    app.post('/admin/contact/add', token.checkToken, (req, res) => {
+        let Contact = require('../src/controllers/ContactAdd.js');
+        (new Contact()).processForm(req, res);
+    });
+
+    app.get('/admin/contact/edit/:id', (req, res) => {
+        //console.log(req.query.id)
+        let Contact = require('../src/controllers/ContactList.js');
+        (new Contact()).print(req, res);
+    });
+    app.post('/admin/contact/edit/:id', (req, res) => {
+        //console.log(req.query.id)
+        let Contact = require('../src/controllers/ContactList.js');
+        (new Contact()).delete(req, res);
     });
 };

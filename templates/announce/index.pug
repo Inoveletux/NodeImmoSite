@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block content
+    h1 
+        case product.realty.realtyTypeProduct
+            when '1'
+                | Maison #{product.realty.realtyArea}m² - #{product.realty.realtyRoom} pièce(s)
+                - break
+            when '2' 
+                | Appartement #{product.realty.realtyArea}m² - #{product.realty.realtyRoom} pièce(s)
+                - break
+            when '3' 
+                | Terrain
+                - break
+            when '4' 
+                | Parking
+                - break
+            when '5' 
+                | Local / Bureau
+                - break
+            default
+                | Autres
+
+    h3.mb-0 #{product.realty.realtyPrice}€
+    .mb-1.text-muted #{product.realty.realtyZipcode} #{product.realty.realtyCity}     
+    p #{product.realty.realtyInfoAddress} 
+    p #{product.realty.realtyInfoRealty} 

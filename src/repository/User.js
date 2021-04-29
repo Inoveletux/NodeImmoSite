@@ -42,4 +42,31 @@ module.exports = class User {
         })
     }
 
+    getAllContacts() {        
+        return new Promise((res, rej)=> {
+            this.db.find({}, function (err, user){
+                // console.log(err, products)
+                if(err) rej (err);
+                res(user)
+            });
+        })
+    }
+    modifyById(id, entity) {
+        return new Promise((res, rej)=> {
+            this.db.updateOne({_id : id}, entity, function (err){
+                // console.log(err, products)
+                if(err) rej (err);
+                res();
+            });
+        });
+    }
+
+    deleteByID(id) {
+        return new Promise((res, rej)=> {
+            this.db.deleteOne({_id: id}, function (err){
+                if(err) rej (err);
+                res();
+            });
+        });
+    }
 } 

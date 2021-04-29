@@ -1,0 +1,25 @@
+extends ../../layout.pug
+block breadcrumb  
+    li
+        a(href='#')
+            em.fa.fa-tachometer-alt &nbsp;
+        li(class='active') Dashboard
+        
+block content
+    .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+        h1 Liste des contacts disponibles 
+        .btn-toolbar.mb-2.mb-md-0
+            a.btn.btn-small.btn-secondary(href="/admin/contact/add") Ajouter un Contact
+    table.table.table-dark
+        thead 
+            td Nom 
+            td Email 
+            td Téléphone
+        tbody
+        each user in users 
+            tr 
+                td #{user.lastname} #{user.firstname}
+                td= user.email
+                td= user.phone
+                    a.btn.btn-primary.center-block(href="/admin/contact/delete?id="+user._id) Supprimer
+                    a.btn.btn-primary.center-block(href="/admin/contact/edit/:id"+user._id) Editer

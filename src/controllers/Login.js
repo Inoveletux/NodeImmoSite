@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 const RepoUser = require('../repository/User')
 const jwt = require('jsonwebtoken');
 const Cookies = require( "cookies" );
-const config = require('../../app/config.js')
+const config = require('../../app/config.js');
+const { Cookie } = require('cookies');
 module.exports = class Login {
     print(req, res) {
         res.render('login');  
@@ -33,5 +34,12 @@ module.exports = class Login {
             req.flash('error', "L'identification à échouée");
             res.redirect('/login') //flashbag+redirection page login
         })
+    }
+
+    disconnect(req, res) {
+        let Cookies = require('Cookies');
+        new Cookies(req, res).set('access_token', null, {maxAge:0});
+        req.flash('notify', 'Vous êtes maintenant déconnecté');
+        res.redirect('/');
     }
 };

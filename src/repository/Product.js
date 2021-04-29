@@ -32,7 +32,7 @@ const ProductSchema = mongoose.Schema({
         contactInfo : { type: String },
     }
 }, { versionKey: false });
- 
+
 module.exports = class Product {
     constructor() {
         this.db = mongoose.model('Product', ProductSchema); 
